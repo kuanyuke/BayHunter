@@ -1,0 +1,11 @@
+Here I rewrite the script for preparation of convergence diagnostics test.
+The main change is in the parallel.py script. Now it is change into Betweenchains.py.
+This new script is used for diff chains to communicate with each other.
+
+
+Class Parallel Tempering
+To do so, first, those models at T=1 should be in the same chain to see if chain at T =1 converge.
+(Before I only collected all models at T=1 from whole chains but now want to make all these models at the same chians.)
+
+Class Convergence diagnostics
+

@@ -1,0 +1,4 @@
+#!/home/kuanyu/anaconda2/envs/test_bay/bin/python
+from BayHunter.BayWatch import main
+
+main()
