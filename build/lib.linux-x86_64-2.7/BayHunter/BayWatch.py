@@ -48,7 +48,12 @@ class BayWatcher(object):
         self.priors, self.initparams = utils.load_params(defaults)
         self.priors.update(data_pars['priors'])
         self.initparams.update(data_pars['initparams'])
-        self.nchains = self.initparams['nchains']
+        
+	
+	self.ngroups = self.initparams.get('ngroups')
+        self.inittmp = self.initparams.get('temperatures')
+        self.nchains = self.ngroups * len(self.inittmp)
+        
         self.refmodel = data_pars.get('refmodel', dict())
         self.plot_ra = data_pars['plot_ra']
 
@@ -275,9 +280,7 @@ class BayWatcher(object):
                 #self.axes[6].set_xticks([])
                 
         # reference model
-        dep, vsv, vsh, ra = self.refmodel.get('model', ([np.nan], [np.nan], [np.nan], [np.nan]))
-        vs_methods = self.priors['vs_methods']
-        vs = Model.get_avg_vs(vsv, vsh, methods=vs_methods)
+        dep, vs, ra = self.refmodel.get('model', ([np.nan], [np.nan], [np.nan]))
         noise = self.refmodel.get('noise', [np.nan, np.nan])[1::2]
         explike = self.refmodel.get('explike', np.nan)
         vpvs = self.refmodel.get('vpvs', np.nan)

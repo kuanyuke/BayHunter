@@ -17,8 +17,6 @@ from BayHunter import utils
 import logging
 logger = logging.getLogger()
 
-import sys
-sys.stdout.flush()
 
 PAR_MAP = {'vsmod': 0, 'zvmod': 1, 'birth': 2, 'death': 2,
            'noise': 3, 'vpvs': 4, 'ramod': 5,}

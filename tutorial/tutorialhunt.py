@@ -107,7 +107,7 @@ targets = Targets.JointTarget(targets=[target1, target2])
 ##total number of chains = number of temperture * ngroups
 from create_tmp import log_uniform
 loguniform = log_uniform(a=0, b=0.3, base=10)
-temp1 = loguniform.rvs(size=3)
+temp1 = loguniform.rvs(size=2)
 temp0 = np.ones(3) #only when temperature == 1, the chains will be considered for the final models
 temp = np.concatenate((temp0, temp1))
 
@@ -143,7 +143,7 @@ optimizer = MCMC_Optimizer(targets, initparams=initparams, priors=priors,
 # nthreads = len(temp) +1 (for parellel tempering) + 1(for BayWatch)
 # if baywatch is True, inversion data is continuously send out (dtsend)
 # to be received by BayWatch (see below).
-optimizer.mp_inversion(nthreads=7, baywatch=False, dtsend=1)
+optimizer.mp_inversion(nthreads=7, baywatch=True, dtsend=1)
 
 
 #

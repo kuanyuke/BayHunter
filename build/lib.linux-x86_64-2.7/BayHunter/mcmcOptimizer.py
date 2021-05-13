@@ -55,7 +55,6 @@ class MCMC_Optimizer(object):
         utils.save_config(targets, outfile, priors=self.priors,
                           initparams=self.initparams)
 
-	self.init_tmp = self.initparams.get('temperatures')
         self.ngroups = self.initparams.get('ngroups')
         self.ntargets = len(targets.targets)
         self.inittmp = self.initparams.get('temperatures')
@@ -90,7 +89,7 @@ class MCMC_Optimizer(object):
 
         acceptance = np.max(self.initparams['acceptance']) / 100.
         accepted_models = int(self.iterations * acceptance)
-        self.nmodels = accepted_models *2  # 'iterations'
+        self.nmodels = accepted_models# *2  # 'iterations'
 
         
         """Create a shared raw array.
@@ -214,14 +213,14 @@ class MCMC_Optimizer(object):
 
         logger.info('Starting monitor process on %s...' % self.sock_addr)
 
-        models = np.frombuffer(self.sharedmodels, dtype=dtype) \
-            .reshape((self.nchains, self.nmodels, self.maxlayers*3))
-        likes = np.frombuffer(self.sharedlikes, dtype=dtype) \
-            .reshape((self.nchains, self.nmodels))
-        noise = np.frombuffer(self.sharednoise, dtype=dtype) \
-            .reshape((self.nchains, self.nmodels, self.ntargets*2))
-        vpvs = np.frombuffer(self.sharedvpvs, dtype=dtype) \
-            .reshape((self.nchains, self.nmodels))
+        models = np.frombuffer(self.sharedtmpmodels, dtype=dtype) \
+            .reshape((self.nchains, self.ntmpmodels, self.maxlayers*3))
+        likes = np.frombuffer(self.sharedtmplikes, dtype=dtype) \
+            .reshape((self.nchains, self.ntmpmodels))
+        noise = np.frombuffer(self.sharedtmpnoise, dtype=dtype) \
+            .reshape((self.nchains, self.ntmpmodels, self.ntargets*2))
+        vpvs = np.frombuffer(self.sharedtmpvpvs, dtype=dtype) \
+            .reshape((self.nchains, self.ntmpmodels))
 
         def get_latest_row(models):
             nan_mask = ~np.isnan(models[:, :, 0])

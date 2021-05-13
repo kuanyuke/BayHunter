@@ -11,6 +11,7 @@ from BayHunter.Models import ModelMatrix, Model
 
 class convergence_diagnostics(object):                  
         def __init__(self,configfile, filename, step = 100 ):
+        	#every 100 step calculate convergence once
         	condict = self.read_config(configfile)
         	self.priors = condict['priors']
         	self.initparams = condict['initparams']

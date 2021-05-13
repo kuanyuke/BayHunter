@@ -151,7 +151,6 @@ class PlotFromStorage(object):
         chainidxs = np.zeros(nchains) * np.nan
         chainmedians = np.zeros(nchains) * np.nan
         self.hotchainidxs = []
-        self.coldchainidxs = []
 
         for i, likefile in enumerate(self.likefiles[1]):
             
@@ -392,10 +391,6 @@ class PlotFromStorage(object):
             tmp = self.init_tmp[tmpidx]
             label = 'c%d T=%s' % (chainidx,tmp)
             
-            #if chainidx in self.coldchainidxs:
-	    #	color ='blue'
-	    #else:
-	    #	color ='red'
 	    	
             ax.plot(iters, data, color=color,
                     ls=ls, lw=lw, alpha=alpha,
